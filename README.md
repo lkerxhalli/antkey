@@ -23,4 +23,4 @@ This script creates the following temporary files:
 > new.properties - holds your password in clear  
 > new2.properties - holds your password in clear  
   
-**Make sure these files are deleted in case the scripts fails to delete them**
+**Make sure to delete these temporary files in case the script fails to delete them**
