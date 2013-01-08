@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<project xmlns:sf="antlib:com.salesforce" default="build-all" basedir=".">
+	<property file="build.properties"/>
+	<property environment="env"/>
+
+	<target name="getLatest">
+		<sf:retrieve username="${testusername}" password="${testpassword}" serverurl="${testserverurl}" retrieveTarget="./" pollWaitMillis="10000" maxPoll="100" unpackaged="./package.xml"/>
+	</target>
+	<target name="deployToProdTest">
+		<sf:deploy username="${produsername}" password="${prodpassword}" serverurl="${prodserverurl}" deployRoot="./" runAllTests="false" checkOnly="true"/>
+	</target>
+	<target name="deployToProdReal">
+		<sf:deploy username="${produsername}" password="${prodpassword}" serverurl="${prodserverurl}" deployRoot="./" runAllTests="false" checkOnly="false"/>
+	</target>
+</project>

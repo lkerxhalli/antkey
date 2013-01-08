@@ -1,0 +1,21 @@
+#! /bin/bash
+#
+
+get_pw () {
+  security 2>&1 >/dev/null find-generic-password -ga $1 \
+  |ruby -e 'print $1 if STDIN.gets =~ /^password: "(.*)"$/'
+}
+cp build.properties build.bak
+testpassword="$(get_pw sfdctestpassword)"
+prodpassword="$(get_pw sfdcpassword)"
+sed "s/sfdctestpassword/${testpassword}/" build.properties > new.properties
+sed "s/sfdcpassword/${prodpassword}/" new.properties > new2.properties
+cp new2.properties build.properties
+
+ant $1 $2
+
+rm new.properties
+rm new2.properties
+cp build.bak build.properties
+rm build.bak
+
